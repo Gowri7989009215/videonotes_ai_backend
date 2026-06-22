@@ -16,17 +16,21 @@ def download_youtube_video(video_url: str, output_path: str) -> None:
 
     ydl_opts = {
     "cookiefile": "cookies.txt",
-    "format": "best",
+    "format": "bv*+ba/b",
     "outtmpl": output_path,
     "noplaylist": True,
     "quiet": False,
-    }
+    "merge_output_format": "mp4",
+}
 
 
     print("cookies exists:", os.path.exists("cookies.txt"))
     print("starting yt-dlp download")
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([video_url])
+        info = ydl.extract_info(video_url, download=False)
+        print("Available formats:")
+        for f in info.get("formats", []):
+            print(f.get("format_id"), f.get("ext"))
 
     # Verify file was created
     # yt-dlp may add extension, try common patterns
