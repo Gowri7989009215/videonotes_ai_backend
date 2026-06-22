@@ -33,6 +33,18 @@ from routers.files import router as files_router
 from routers.health import router as health_router
 
 
+
+
+load_dotenv()
+
+cookies = os.getenv("YOUTUBE_COOKIES")
+
+if cookies:
+    with open("cookies.txt", "w", encoding="utf-8") as f:
+        f.write(cookies)
+
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup and shutdown lifecycle events."""
