@@ -14,32 +14,17 @@ def download_youtube_video(video_url: str, output_path: str) -> None:
     """
     print(f"[Download] Starting download from {video_url}")
 
-    ydl_opts = {
-    "format": "bestvideo+bestaudio/best",
+   ydl_opts = {
+    "cookiefile": "cookies.txt",
+    "format": "best",
     "outtmpl": output_path,
     "noplaylist": True,
-    "merge_output_format": "mp4",
-
-    "cookiefile": "cookies.txt",
-
-    "extractor_args": {
-        "youtube": {
-            "player_client": ["android", "web"]
-        }
-    },
-
-    "http_headers": {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/137.0.0.0 Safari/537.36"
-        )
-    },
-
     "quiet": False,
-    "no_warnings": False,
 }
 
+
+    print("cookies exists:", os.path.exists("cookies.txt"))
+    print("starting yt-dlp download")
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([video_url])
 
