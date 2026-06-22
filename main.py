@@ -35,15 +35,15 @@ from routers.health import router as health_router
 
 
 
-load_dotenv()
-
 cookies = os.getenv("YOUTUBE_COOKIES")
+
+print("Cookies found:", bool(cookies))
 
 if cookies:
     with open("cookies.txt", "w", encoding="utf-8") as f:
         f.write(cookies)
 
-
+    print("cookies.txt created")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
