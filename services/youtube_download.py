@@ -15,18 +15,30 @@ def download_youtube_video(video_url: str, output_path: str) -> None:
     print(f"[Download] Starting download from {video_url}")
 
     ydl_opts = {
-        "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
-        "outtmpl": output_path,
-        "noplaylist": True,
-        "no_check_certificate": True,
-        "quiet": False,
-        "no_warnings": False,
-        "merge_output_format": "mp4",
-        "http_headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Referer": "https://www.youtube.com/",
-        },
-    }
+    "format": "bestvideo+bestaudio/best",
+    "outtmpl": output_path,
+    "noplaylist": True,
+    "merge_output_format": "mp4",
+
+    "cookiefile": "cookies.txt",
+
+    "extractor_args": {
+        "youtube": {
+            "player_client": ["android", "web"]
+        }
+    },
+
+    "http_headers": {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/137.0.0.0 Safari/537.36"
+        )
+    },
+
+    "quiet": False,
+    "no_warnings": False,
+}
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([video_url])
