@@ -14,13 +14,13 @@ def download_youtube_video(video_url: str, output_path: str) -> None:
     """
     print(f"[Download] Starting download from {video_url}")
 
-   ydl_opts = {
+    ydl_opts = {
     "cookiefile": "cookies.txt",
     "format": "best",
     "outtmpl": output_path,
     "noplaylist": True,
     "quiet": False,
-}
+    }
 
 
     print("cookies exists:", os.path.exists("cookies.txt"))
