@@ -16,7 +16,7 @@ def download_youtube_video(video_url: str, output_path: str) -> None:
 
     ydl_opts = {
     "cookiefile": "cookies.txt",
-    "format": "bv*+ba/b",
+    "format": "18/best",
     "outtmpl": output_path,
     "noplaylist": True,
     "quiet": False,
